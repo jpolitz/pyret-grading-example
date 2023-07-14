@@ -9,4 +9,4 @@ pwd
 pushd pyret-grading-example
 pwd
 npm install
-node puppet.js
+node puppet.js -p submission.arr -t tests.arr
