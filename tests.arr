@@ -1,9 +1,8 @@
 
 check:
-  2 + 2 is 4
+  max-age(people-table) is 13
 end
 
 check:
-  2 + 3 is 4
+  max(empty) raises "empty"
 end
-

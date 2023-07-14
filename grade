@@ -6,6 +6,9 @@ pyret submission.arr
 popd
 
 pwd
+
+cp submission/submission.arr pyret-grading-example/
+
 pushd pyret-grading-example
 pwd
 npm install
