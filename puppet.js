@@ -24,7 +24,7 @@ const {
   console.log(program);
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('https://code.pyret.org/editor', {waitUntil: 'networkidle2'});
+  await page.goto('http://localhost:4999/editor', {waitUntil: 'networkidle2'});
   await page.evaluate("window.CM = $('.CodeMirror')[0].CodeMirror");
   await page.evaluate("function f(program) { window.CM.setValue(program); }");
   await page.evaluate(`f(\`${program}\`)`);
