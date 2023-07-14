@@ -41,7 +41,7 @@ function __getTests(elts) {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
-  await page.goto('http://localhost:4999/editor', {waitUntil: 'networkidle2'});
+  await page.goto('http://code.pyret.org/editor', {waitUntil: 'networkidle2'});
   await page.evaluate("window.CM = $('.CodeMirror')[0].CodeMirror");
   await page.evaluate("function f(program) { window.CM.setValue(program); }");
   await page.evaluate(`f(\`${program}\`)`);
