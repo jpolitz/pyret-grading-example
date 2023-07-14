@@ -3,3 +3,7 @@
 node --version
 cd /autograder/submission
 pyret submission.arr
+
+cd ..
+npm install
+node puppet.js
