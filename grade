@@ -5,6 +5,8 @@ pushd /autograder/submission
 pyret submission.arr
 popd
 
+pwd
 pushd pyret-grader
+pwd
 npm install
 node puppet.js
