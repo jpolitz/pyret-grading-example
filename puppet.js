@@ -1,5 +1,5 @@
 const { parseArgs } = require('node:util');
-const { readFileSync } = require('fs');
+const { readFileSync, writeFileSync } = require('fs');
 const puppeteer = require('puppeteer');
 
 const options = {
@@ -16,6 +16,21 @@ const {
   values,
   positionals,
 } = parseArgs({ options });
+
+function __getTests(elts) {
+  function __getTest(elt) {
+      if(elt.className.includes('passing-test')) {
+        return { kind: 'passed', content: elt.innerText };
+      }
+      else if(elt.className.includes('failing-test')) {
+        return { kind: 'failed', content: elt.innerText };
+      }
+      else {
+        return { kind: 'unknown', content: elt.innerText };
+      }
+  }
+  return elts.map(__getTest);
+}
 
 
 (async() => {
@@ -41,12 +56,32 @@ const {
   }
   */
   // GET TEST RESULTS SOMEHOW
-
   const tests = String(readFileSync(values['tests']));
   console.log(tests);
   await page.evaluate(`window.RUN_INTERACTION(\`${tests}\`)`);
   await page.waitForSelector(".repl-prompt", { visible: true });
+
+  const headers = await page.$$eval(".check-block-header", hs => hs.map(h => h.click()));
+  const results = await page.$(".test-results");
+  console.log(results);
+  const jsonResults = await results.$$eval(".check-block-test", __getTests);
+  console.log(jsonResults);
+
+  const gradescopeJSON = {
+    score: 0.0,
+    tests: jsonResults.map(jr => {
+      const score = jr.kind === 'passed' ? 1 : 0;
+      return {
+        score: score,
+        output: jr.content,
+        output_format: "text"
+      };
+    })
+  }
+
   await page.pdf({path: 'page.pdf', format: 'A4'});
+
+  writeFileSync("results.json", JSON.stringify(gradescopeJSON));
 
   await browser.close();
 })();
