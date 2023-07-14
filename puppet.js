@@ -59,7 +59,7 @@ function __getTests(elts) {
   const tests = String(readFileSync(values['tests']));
   console.log(tests);
   await page.evaluate(`window.RUN_INTERACTION(\`${tests}\`)`);
-  await page.waitForSelector(".repl-prompt", { visible: true });
+  await page.waitForSelector(".check-block-header", { visible: true });
 
   const headers = await page.$$eval(".check-block-header", hs => hs.map(h => h.click()));
   const results = await page.$(".test-results");
