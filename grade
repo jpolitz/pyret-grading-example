@@ -6,7 +6,7 @@ pyret submission.arr
 popd
 
 pwd
-pushd pyret-grader
+pushd pyret-grading-example
 pwd
 npm install
 node puppet.js
