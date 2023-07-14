@@ -16,4 +16,5 @@ node puppet.js -p submission.arr -t tests.arr
 cat results.json
 pwd
 cp results.json ..
+cp results.json ../results/
 
