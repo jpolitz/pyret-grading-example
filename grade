@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 node --version
-cd /autograder/submission
+pushd /autograder/submission
 pyret submission.arr
+popd
 
-cd ..
 npm install
 node puppet.js
